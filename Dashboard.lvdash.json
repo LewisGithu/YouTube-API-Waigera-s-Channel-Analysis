@@ -1,0 +1,1788 @@
+{
+  "datasets": [
+    {
+      "name": "28232638",
+      "displayName": "waigera_silver",
+      "queryLines": [
+        "SELECT *, DATE_FORMAT(`Date`, 'EEEE') AS day_of_week\r\n",
+        "FROM read_files('/Volumes/projects/youtube/waigera/Waigera_New_Car_Type_Fill.csv');\r\n"
+      ],
+      "columns": [
+        {
+          "displayName": "engagement_per_1k_views",
+          "description": "Total likes plus comments per 1,000 views",
+          "expression": "(SUM(`Sum of Likes`) + SUM(`Sum of Comments`)) * 1000.0 / NULLIF(SUM(`Sum of Views`), 0)"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "c2c1eee2",
+      "displayName": "Dashboard",
+      "layout": [
+        {
+          "widget": {
+            "name": "views-trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "daily(Date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `Date`)"
+                    },
+                    {
+                      "name": "sum(Sum of Views)",
+                      "expression": "SUM(`Sum of Views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;text-decoration: underline;\">VIEWS TREND</span></span>",
+                  "fields": []
+                },
+                "description": {
+                  "value": "<span style=\"text-align:center;display:block;\">Shows the trend of views from first day to now.</span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Views)",
+                        "displayName": "Views"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "hide": true
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "total-views",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "sum(Sum of Views)",
+                      "expression": "SUM(`Sum of Views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 18px;\">Total Views</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Sum of Views)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    },
+                    "hideGroupSeparator": false
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "total-likes",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "sum(Sum of Likes)",
+                      "expression": "SUM(`Sum of Likes`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 18px;\">Total Likes</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Sum of Likes)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "total-comments",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "sum(Sum of Comments)",
+                      "expression": "SUM(`Sum of Comments`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 18px;\">Total Comments</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Sum of Comments)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 2,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "likes-comments-trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "monthly(Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Date`)"
+                    },
+                    {
+                      "name": "sum(Sum of Likes)",
+                      "expression": "SUM(`Sum of Likes`)"
+                    },
+                    {
+                      "name": "sum(Sum of Comments)",
+                      "expression": "SUM(`Sum of Comments`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Likes and Comments trend</span></span>",
+                  "fields": []
+                },
+                "description": {
+                  "value": "<span style=\"text-align:center;display:block;\">Shows how the likes and comments have grown from the first day until now.</span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Likes)",
+                        "displayName": "Likes"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Comments)",
+                        "displayName": "Comments"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "times-car-brands-featured",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Car_Brand",
+                      "expression": "`Car_Brand`"
+                    },
+                    {
+                      "name": "count(Car_Brand)",
+                      "expression": "COUNT(`Car_Brand`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`Car_Brand` IS NULL OR `Car_Brand` NOT IN ('null', 'multiple')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Times Car brands are featured</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Car_Brand",
+                  "displayName": "Car Brand",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "count(Car_Brand)",
+                  "displayName": "Times Featured",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 29,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "views-by-car-brands",
+            "queries": [
+              {
+                "name": "combo_primary_1",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Car_Brand",
+                      "expression": "`Car_Brand`"
+                    },
+                    {
+                      "name": "sum(Sum of Views)",
+                      "expression": "SUM(`Sum of Views`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`Car_Brand` IS NULL OR `Car_Brand` NOT IN ('multiple', 'null')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "combo_secondary_1",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Car_Brand",
+                      "expression": "`Car_Brand`"
+                    },
+                    {
+                      "name": "avg(Sum of Views)",
+                      "expression": "AVG(`Sum of Views`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`Car_Brand` IS NULL OR `Car_Brand` NOT IN ('multiple', 'null')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 14px;text-decoration: underline;\">Views by Car Brand</span></span>",
+                  "fields": []
+                }
+              },
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "Car_Brand",
+                  "displayName": "Car Brand",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "layers": [
+                      {
+                        "visual": "bar",
+                        "encodings": {
+                          "value": {
+                            "fields": [
+                              {
+                                "fieldName": "sum(Sum of Views)",
+                                "displayName": "Views"
+                              }
+                            ]
+                          }
+                        },
+                        "queryName": "combo_primary_1"
+                      }
+                    ]
+                  },
+                  "secondary": {
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "layers": [
+                      {
+                        "visual": "line",
+                        "encodings": {
+                          "value": {
+                            "fields": [
+                              {
+                                "fieldName": "avg(Sum of Views)",
+                                "displayName": "Average Views"
+                              }
+                            ]
+                          }
+                        },
+                        "queryName": "combo_secondary_1"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 35,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "likes-comments-car-brand",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Car_Brand",
+                      "expression": "`Car_Brand`"
+                    },
+                    {
+                      "name": "sum(Sum of Likes)",
+                      "expression": "SUM(`Sum of Likes`)"
+                    },
+                    {
+                      "name": "sum(Sum of Comments)",
+                      "expression": "SUM(`Sum of Comments`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`Car_Brand` IS NULL OR `Car_Brand` NOT IN ('multiple', 'null')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Likes and comments by Car Brand</span></span>",
+                  "fields": []
+                },
+                "description": {
+                  "value": "<span style=\"text-align:center;display:block;\">The more the likes, the more the comments. Toyota is the takes the lead followed closely by Mercedes-Benz then BMW.</span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Car_Brand",
+                  "displayName": "Car Brand",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Likes)",
+                        "displayName": "Likes"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Comments)",
+                        "displayName": "Comments"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "hideTitle": false,
+                    "hide": false,
+                    "position": "top"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 41,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "views-by-type-of-car",
+            "queries": [
+              {
+                "name": "combo_primary_1",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Car_Type",
+                      "expression": "`Car_Type`"
+                    },
+                    {
+                      "name": "sum(Sum of Views)",
+                      "expression": "SUM(`Sum of Views`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`Car_Type` IS NULL OR `Car_Type` NOT IN ('null')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "combo_secondary_1",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Car_Type",
+                      "expression": "`Car_Type`"
+                    },
+                    {
+                      "name": "avg(Sum of Views)",
+                      "expression": "AVG(`Sum of Views`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`Car_Type` IS NULL OR `Car_Type` NOT IN ('null')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "showDescription": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Views by type of car</span></span>",
+                  "fields": []
+                },
+                "description": {
+                  "value": "<span style=\"text-align:center;display:block;\">Shows how different vehicle body types were viewed(includes aircraft).</span>",
+                  "fields": []
+                }
+              },
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "Car_Type",
+                  "displayName": "Type of Car",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "layers": [
+                      {
+                        "visual": "bar",
+                        "encodings": {
+                          "value": {
+                            "fields": [
+                              {
+                                "fieldName": "sum(Sum of Views)",
+                                "displayName": "Views"
+                              }
+                            ]
+                          }
+                        },
+                        "queryName": "combo_primary_1"
+                      }
+                    ]
+                  },
+                  "secondary": {
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "layers": [
+                      {
+                        "visual": "line",
+                        "encodings": {
+                          "value": {
+                            "fields": [
+                              {
+                                "fieldName": "avg(Sum of Views)",
+                                "displayName": "Average Views"
+                              }
+                            ]
+                          }
+                        },
+                        "queryName": "combo_secondary_1"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 47,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "likes-comments-car-types",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Car_Type",
+                      "expression": "`Car_Type`"
+                    },
+                    {
+                      "name": "sum(Sum of Likes)",
+                      "expression": "SUM(`Sum of Likes`)"
+                    },
+                    {
+                      "name": "sum(Sum of Comments)",
+                      "expression": "SUM(`Sum of Comments`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`Car_Type` IS NULL OR `Car_Type` NOT IN ('null')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Likes and comments by car types</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Car_Type",
+                  "displayName": "Type of Car",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Likes)",
+                        "displayName": "Likes"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Comments)",
+                        "displayName": "Comments"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 53,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "views-by-content-type",
+            "queries": [
+              {
+                "name": "combo_primary_1",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Content_Type",
+                      "expression": "`Content_Type`"
+                    },
+                    {
+                      "name": "sum(Sum of Views)",
+                      "expression": "SUM(`Sum of Views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "combo_secondary_1",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Content_Type",
+                      "expression": "`Content_Type`"
+                    },
+                    {
+                      "name": "avg(Sum of Views)",
+                      "expression": "AVG(`Sum of Views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Views by Content type</span></span>",
+                  "fields": []
+                },
+                "showDescription": true,
+                "description": {
+                  "value": "<span style=\"text-align:center;display:block;\">Aviation has the most views per video.</span>",
+                  "fields": []
+                }
+              },
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "Content_Type",
+                  "displayName": "Content",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "layers": [
+                      {
+                        "visual": "bar",
+                        "encodings": {
+                          "value": {
+                            "fields": [
+                              {
+                                "fieldName": "sum(Sum of Views)",
+                                "displayName": "Views"
+                              }
+                            ]
+                          }
+                        },
+                        "queryName": "combo_primary_1"
+                      }
+                    ]
+                  },
+                  "secondary": {
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "layers": [
+                      {
+                        "visual": "line",
+                        "encodings": {
+                          "value": {
+                            "fields": [
+                              {
+                                "fieldName": "avg(Sum of Views)",
+                                "displayName": "Average Views"
+                              }
+                            ]
+                          }
+                        },
+                        "queryName": "combo_secondary_1"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 17,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "likes-comments-content-type",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Content_Type",
+                      "expression": "`Content_Type`"
+                    },
+                    {
+                      "name": "sum(Sum of Likes)",
+                      "expression": "SUM(`Sum of Likes`)"
+                    },
+                    {
+                      "name": "sum(Sum of Comments)",
+                      "expression": "SUM(`Sum of Comments`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Likes and comments by content type</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "Content_Type",
+                  "displayName": "Content",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Likes)",
+                        "displayName": "Likes"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Comments)",
+                        "displayName": "Comments"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 23,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "fc9cf90d",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 48px;line-height: 1.5;font-weight: 700;\">WAIGERA YOUTUBE DASHBOARD</span></span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "6ad4a5da",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Content_Type",
+                      "expression": "`Content_Type`"
+                    },
+                    {
+                      "name": "measure(engagement_per_1k_views)",
+                      "expression": "MEASURE(`engagement_per_1k_views`)"
+                    }
+                  ],
+                  "disaggregated": false,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "MEASURE(`engagement_per_1k_views`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": true,
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;\">Engagement Rate by Content Type</span></span>",
+                  "fields": []
+                },
+                "description": {
+                  "value": "<span style=\"text-align:center;display:block;\">(Likes + Comments) per 1,000 views</span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Content_Type",
+                  "displayName": "Content",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "measure-reversed",
+                      "measure": {
+                        "fieldName": "measure(engagement_per_1k_views)"
+                      }
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(engagement_per_1k_views)",
+                  "displayName": "Engagement Rate",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 65,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "videos-per-month",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "monthly(Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Date`)"
+                    },
+                    {
+                      "name": "count(Date)",
+                      "expression": "COUNT(`Date`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": false,
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;\">Videos Published per Month</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Date)",
+                  "displayName": "Month",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(Date)",
+                  "displayName": "Videos",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 65,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "top-car-models-views",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "sum(Sum of Views)",
+                      "expression": "SUM(`Sum of Views`)"
+                    },
+                    {
+                      "name": "Car_Model",
+                      "expression": "`Car_Model`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`Car_Model` IS NULL OR `Car_Model` NOT IN ('null', 'multiple')"
+                    }
+                  ],
+                  "disaggregated": false,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "SUM(`Sum of Views`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": true,
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Top Car Models by Views</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(Sum of Views)",
+                  "displayName": "Views",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "Car_Model",
+                  "displayName": "Car Model",
+                  "scale": {
+                    "categorySize": {
+                      "number": 10,
+                      "type": "number-of-categories"
+                    },
+                    "type": "categorical",
+                    "sort": {
+                      "by": "measure-reversed",
+                      "measure": {
+                        "fieldName": "sum(Sum of Views)"
+                      }
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 59,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "top-videos-table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Title",
+                      "expression": "`Title`"
+                    },
+                    {
+                      "name": "Sum of Views",
+                      "expression": "`Sum of Views`"
+                    },
+                    {
+                      "name": "Sum of Likes",
+                      "expression": "`Sum of Likes`"
+                    },
+                    {
+                      "name": "Sum of Comments",
+                      "expression": "`Sum of Comments`"
+                    },
+                    {
+                      "name": "Content_Type",
+                      "expression": "`Content_Type`"
+                    },
+                    {
+                      "name": "Car_Model",
+                      "expression": "`Car_Model`"
+                    },
+                    {
+                      "name": "Date",
+                      "expression": "`Date`"
+                    }
+                  ],
+                  "disaggregated": true,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "`Sum of Views`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showDescription": false,
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;text-decoration: underline;\">Top 10 Videos by Views</span></span>",
+                  "fields": []
+                }
+              },
+              "displayRowNumbers": true,
+              "rowsPerPage": 10,
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "Title",
+                    "headerAlignment": "left"
+                  },
+                  {
+                    "fieldName": "Sum of Views",
+                    "headerAlignment": "right"
+                  },
+                  {
+                    "fieldName": "Sum of Likes",
+                    "headerAlignment": "right"
+                  },
+                  {
+                    "fieldName": "Sum of Comments",
+                    "headerAlignment": "right"
+                  },
+                  {
+                    "fieldName": "Content_Type"
+                  },
+                  {
+                    "fieldName": "Car_Model"
+                  },
+                  {
+                    "fieldName": "Date",
+                    "format": {
+                      "date": "locale-short-month",
+                      "type": "date"
+                    }
+                  }
+                ],
+                "rowOrder": [
+                  {
+                    "by": "column-reversed",
+                    "field": {
+                      "index": 1
+                    }
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 71,
+            "width": 12,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "day-of-week-views-likes-comments",
+            "queries": [
+              {
+                "name": "combo_primary_1",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "day_of_week",
+                      "expression": "`day_of_week`"
+                    },
+                    {
+                      "name": "sum(Sum of Views)",
+                      "expression": "SUM(`Sum of Views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "combo_secondary_1",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "day_of_week",
+                      "expression": "`day_of_week`"
+                    },
+                    {
+                      "name": "avg(Sum of Views)",
+                      "expression": "AVG(`Sum of Views`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showDescription": true,
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;font-size: 14px;\">Views by Day of Week</span></span>",
+                  "fields": []
+                },
+                "description": {
+                  "value": "<span style=\"text-align:center;display:block\">Monday has the most views per video.</span>",
+                  "fields": []
+                }
+              },
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "day_of_week",
+                  "displayName": "Day",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ]
+                    }
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "layers": [
+                      {
+                        "visual": "bar",
+                        "encodings": {
+                          "value": {
+                            "fields": [
+                              {
+                                "fieldName": "sum(Sum of Views)",
+                                "displayName": "Views"
+                              }
+                            ]
+                          }
+                        },
+                        "queryName": "combo_primary_1"
+                      }
+                    ]
+                  },
+                  "secondary": {
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "layers": [
+                      {
+                        "visual": "line",
+                        "encodings": {
+                          "value": {
+                            "fields": [
+                              {
+                                "fieldName": "avg(Sum of Views)",
+                                "displayName": "Average Views"
+                              }
+                            ]
+                          }
+                        },
+                        "queryName": "combo_secondary_1"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 79,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "likes-comments-by-day-week",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "day_of_week",
+                      "expression": "`day_of_week`"
+                    },
+                    {
+                      "name": "sum(Sum of Likes)",
+                      "expression": "SUM(`Sum of Likes`)"
+                    },
+                    {
+                      "name": "sum(Sum of Comments)",
+                      "expression": "SUM(`Sum of Comments`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;\">Likes and Comments by Day of the Week</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "lineShape": "linear"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "day_of_week",
+                  "displayName": "Day",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ]
+                    }
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Likes)",
+                        "displayName": "Likes"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(Sum of Comments)",
+                        "displayName": "Comments"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 85,
+            "width": 7,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "videos-published-by-day-of-week",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "count(day_of_week)",
+                      "expression": "COUNT(`day_of_week`)"
+                    },
+                    {
+                      "name": "day_of_week",
+                      "expression": "`day_of_week`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"text-decoration: underline;\">Videos Published by Day of the Week</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "count(day_of_week)",
+                  "displayName": "Videos",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "day_of_week",
+                  "displayName": "Day",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 85,
+            "width": 5,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "95b73506",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "3bcec8e3",
+            "queries": [
+              {
+                "name": "dashboards/01f1d2aca3291d59b46e0a6d9bf184a9/datasets/01f1d2ae56b1140982f49951de2054fd_Date",
+                "query": {
+                  "datasetName": "28232638",
+                  "fields": [
+                    {
+                      "name": "Date",
+                      "expression": "`Date`"
+                    },
+                    {
+                      "name": "Date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "selection": {
+                "defaultSelection": {
+                  "operator": {
+                    "operator": "AND",
+                    "args": []
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Date Range"
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "Date",
+                    "queryName": "dashboards/01f1d2aca3291d59b46e0a6d9bf184a9/datasets/01f1d2ae56b1140982f49951de2054fd_Date"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#11171C"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#11171C"
+      },
+      "widgetBorderColor": {
+        "light": "#FFFFFF",
+        "dark": "#11171C"
+      },
+      "fontColor": {
+        "light": "#11171C",
+        "dark": "#E8ECF0"
+      },
+      "selectionColor": {
+        "light": "#2272B4",
+        "dark": "#8ACAFF"
+      },
+      "visualizationColors": [
+        "#077A9D",
+        "#FFAB00",
+        "#00A972",
+        "#FF3621",
+        "#8BCAE7",
+        "#AB4057",
+        "#99DDB4",
+        "#FCA4A1",
+        "#919191",
+        "#BF7080"
+      ],
+      "widgetHeaderAlignment": "LEFT"
+    },
+    "applyModeEnabled": false
+  }
+}
